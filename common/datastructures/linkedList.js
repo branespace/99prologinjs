@@ -24,6 +24,7 @@ LinkedList.prototype.insertAfter = function(node, data) {
     node.next.prev = newNode;
   }
   node.next = newNode;
+  this.length++;
 };
 
 LinkedList.prototype.insertBefore = function(node, data) {
@@ -37,6 +38,7 @@ LinkedList.prototype.insertBefore = function(node, data) {
     node.prev.next = newNode;
   }
   node.prev = newNode;
+  this.length++;
 };
 
 LinkedList.prototype.insertBeginning = function(data) {
@@ -45,6 +47,7 @@ LinkedList.prototype.insertBeginning = function(data) {
     newNode.value = data;
     this.head = newNode;
     this.tail = newNode;
+    this.length++;
   } else {
     this.insertBefore(head, data);
   }
@@ -69,6 +72,7 @@ LinkedList.prototype.remove = function(node) {
   } else {
     node.next.prev = node.prev;
   }
+  this.length--;
 };
 
 LinkedList.prototype.toString = function() {
