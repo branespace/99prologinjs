@@ -9,17 +9,18 @@ for(var i = 1; i <= 5; i++) {
   list.insertEnd(i);
 }
 
-console.log(' Actual result: ' + findLast(list.head));
+console.log(' Actual result: ' + findLast(list));
 
 //Solution
-function findLast(head) {
-  if (head === null) {
+function findLast(list) {
+  if (list.head === null) {
     return 0;
   }
   var count = 1;
-  while (head.next !== null){
+  var node = list.head;
+  while (node.next !== null){
     count++;
-    head = head.next;
+    node = node.next;
   }
   return count;
 }

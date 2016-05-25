@@ -9,15 +9,12 @@ for(var i = 1; i <= 5; i++) {
   list.insertEnd(i);
 }
 
-console.log(' Actual result: ' + findLast(list.head));
+console.log(' Actual result: ' + findLast(list));
 
 //Solution
-function findLast(head) {
-  if (head === null) {
+function findLast(list) {
+  if (list.head === null) {
     return 'empty list';
   }
-  while (head.next !== null) {
-    head = head.next;
-  }
-  return head.value;
+  return list.tail.value;
 }

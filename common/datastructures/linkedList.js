@@ -1,54 +1,73 @@
+//Adapted from the wikipedia implementation
+//  http://en.wikipedia.org/wiki/Doubly_linked_list
+
 function ListNode(data) {
   this.value = data;
   this.next = null;
+  this.prev = null;
 }
 
 function LinkedList() {
   this.head = null;
+  this.tail = null;
   this.length = 0;
 }
 
+LinkedList.prototype.insertAfter = function(node, data) {
+  var newNode = new ListNode();
+  newNode.value = data;
+  newNode.prev = node;
+  newNode.next = node.next;
+  if (node.next === null) {
+    this.tail = newNode;
+  } else {
+    node.next.prev = newNode;
+  }
+  node.next = newNode;
+};
+
+LinkedList.prototype.insertBefore = function(node, data) {
+  var newNode = new ListNode();
+  newNode.value = data;
+  newNode.prev = node.prev;
+  newNode.next = node;
+  if (node.prev === null) {
+    this.head = newNode;
+  } else {
+    node.prev.next = newNode;
+  }
+  node.prev = newNode;
+};
+
 LinkedList.prototype.insertBeginning = function(data) {
-  var head = this.head;
-  this.head = new ListNode(data);
-  this.head.next = head;
-  this.length++;
+  if (this.head === null) {
+    var newNode = new ListNode();
+    newNode.value = data;
+    this.head = newNode;
+    this.tail = newNode;
+  } else {
+    this.insertBefore(head, data);
+  }
 };
 
 LinkedList.prototype.insertEnd = function(data) {
-  if (this.head === null){
-    this.head = new ListNode(data);
+  if (this.head === null) {
+    this.insertBeginning(data);
   } else {
-    var head = this.head;
-    while(head.next !== null) {
-      head = head.next;
-    }
-    head.next = new ListNode(data);
+    this.insertAfter(this.tail, data);
   }
-  this.length++;
-};
+}; 
 
-LinkedList.prototype.insertAt = function(data, index) {
-  if (index <= this.length) {
-    var node = this.head;
-    for (var i = 0; i < index - 1; i++) {
-      node = node.next;
-    }
-    var next = node.next;
-    node.next = new ListNode(data);
-    node.next.next = next;
-    this.length++;
+LinkedList.prototype.remove = function(node) {
+  if (node.prev === null) {
+    this.head = node.next;
+  } else {
+    node.prev.next = node.next;
   }
-};
-
-LinkedList.prototype.removeAt = function(index) {
-  if (index <= this.length) {
-    var node = this.head;
-    for (var i = 0; i < index - 1; i++) {
-      node = node.next;
-    }
-    node.next = node.next.next;
-    this.length--;
+  if (node.next === null) {
+    this.tail = node.prev;
+  } else {
+    node.next.prev = node.prev;
   }
 };
 

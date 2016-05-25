@@ -9,21 +9,21 @@ for(var i = 1; i <= 5; i++) {
   list.insertEnd(i);
 }
 
-console.log(' Actual result: ' + findnth(list.head, 3));
+console.log(' Actual result: ' + findnth(list, 3));
 
 //Solution
-function findnth(head, count) {
-  if (head === null) {
+function findnth(list, count) {
+  if (list.head === null) {
     return 'empty list';
   }
   if (count === 1) {
-    return head.value;
+    return list.head.value;
   }
-  while (head.next !== null) {
-    head = head.next;
+  while (list.head.next !== null) {
+    list.head = list.head.next;
     count--;
     if (count === 1) {
-      return head.value;
+      return list.head.value;
     }
   }
   return 'count out of range';
